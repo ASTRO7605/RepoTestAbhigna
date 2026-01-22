@@ -95,7 +95,21 @@ public class Robot extends TimedRobot {
         // Exercises - faire avancer le robot à partir des données du limelight
         // si le robot est assez proche le moteur arrête, sinon il continue à avancer.
         ///////////////////////////////////////////////////////////////////
-        
+        double tv = limelight_m.getEntry("tv").getDouble(0.0);
+        double ta = limelight_m.getEntry("ta").getDouble(0.0);
+
+        if (tv < 1.0) {
+            m_robotDrive.stopMotor();
+            return;
+        }
+
+        double STOP_AREA = 25.5;
+
+        if (ta >= STOP_AREA) {
+            m_robotDrive.arcadeDrive(-0.5, 0.0);
+        } else {
+            m_robotDrive.stopMotor();
+        }
         /// //////////////////////////////////////////////////////////////
 
     }
