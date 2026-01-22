@@ -103,12 +103,12 @@ public class Robot extends TimedRobot {
             return;
         }
 
-        double STOP_AREA = 1.5;
+        double STOP_AREA = 25.5;
 
         if (ta >= STOP_AREA) {
-            m_robotDrive.stopMotor();
+            m_robotDrive.arcadeDrive(-0.5, 0.0);
         } else {
-            m_robotDrive.arcadeDrive(0.5, 0.0);
+            m_robotDrive.stopMotor();
         }
         /// //////////////////////////////////////////////////////////////
 
