@@ -94,7 +94,7 @@ public class Robot extends TimedRobot {
         //Exercises - faire avancer le robot à partir des données du limelight 
         // si le robot est assez proche le moteur arrête, sinon il continue à avancer. 
         ///////////////////////////////////////////////////////////////////
-        
+        double tv = limelight_m.getEntry("tv").getDouble(0.0);
         /// //////////////////////////////////////////////////////////////
 
     }
