@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+
 //ajout pour limelight
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -34,10 +35,10 @@ public class Robot extends TimedRobot {
     private final SparkMax m_rightDriveAV = new SparkMax(3, MotorType.kBrushed);
     private final SparkMax m_leftDriveARslave = new SparkMax(2, MotorType.kBrushed);
     private final SparkMax m_rightDriveARslave = new SparkMax(4, MotorType.kBrushed);
-   
-   
-    //ajout pour limelight (initialisation du limelight 4) (utile pour avoir les données du limelight)
-    private final NetworkTable limelight_m  = NetworkTableInstance.getDefault().getTable("limelight");
+
+    // ajout pour limelight (initialisation du limelight 4) (utile pour avoir les
+    // données du limelight)
+    private final NetworkTable limelight_m = NetworkTableInstance.getDefault().getTable("limelight");
     //
 
     private final DifferentialDrive m_robotDrive = new DifferentialDrive(m_leftDriveAV::set, m_rightDriveAV::set);
@@ -90,11 +91,25 @@ public class Robot extends TimedRobot {
         } else {
             m_robotDrive.stopMotor(); // stop robot
         }
-        
-        //Exercises - faire avancer le robot à partir des données du limelight 
-        // si le robot est assez proche le moteur arrête, sinon il continue à avancer. 
+
+        // Exercises - faire avancer le robot à partir des données du limelight
+        // si le robot est assez proche le moteur arrête, sinon il continue à avancer.
         ///////////////////////////////////////////////////////////////////
-        
+        double tv = limelight_m.getEntry("tv").getDouble(0.0);
+        double ta = limelight_m.getEntry("ta").getDouble(0.0);
+
+        if (tv < 1.0) {
+            m_robotDrive.stopMotor();
+            return;
+        }
+
+        double STOP_AREA = 1.5;
+
+        if (ta >= STOP_AREA) {
+            m_robotDrive.stopMotor();
+        } else {
+            m_robotDrive.arcadeDrive(0.5, 0.0);
+        }
         /// //////////////////////////////////////////////////////////////
 
     }
